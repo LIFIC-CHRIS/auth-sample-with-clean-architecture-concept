@@ -10,7 +10,7 @@ public class EntityUUID {
         this.value = UUID.randomUUID().toString();
     }
 
-    private EntityUUID(String value) {
+    private EntityUUID(final String value) {
         this.value = value;
     }
 

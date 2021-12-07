@@ -6,7 +6,7 @@ import com.example.demo.auth.domain.refreshtoken.RefreshTokenClaimsRepository;
 import com.example.demo.auth.domain.refreshtoken.exception.RefreshTokenClaimsIsNotFoundException;
 import com.example.demo.auth.domain.refreshtoken.exception.RefreshTokenIsExpiredException;
 import com.example.demo.auth.domain.refreshtoken.exception.RefreshTokenIsNotMatchedWithAccessTokenException;
-import com.example.demo.common.ds.Tuple;
+import com.example.demo.common.ds.Pair;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,7 +21,7 @@ public class AuthTokenRefreshService {
         this.refreshTokenClaimsRepository = refreshTokenClaimsRepository;
     }
 
-    public Tuple<AccessToken, RefreshToken> refreshAuthTokens(final AccessToken accessToken, final RefreshToken refreshToken) {
+    public Pair<AccessToken, RefreshToken> refreshAuthTokens(final AccessToken accessToken, final RefreshToken refreshToken) {
         var refreshTokenClaims = this.refreshTokenClaimsRepository.findById(refreshToken.asRefreshTokenClaimsId())
                 .orElseThrow(() -> new RefreshTokenClaimsIsNotFoundException(refreshToken));
 

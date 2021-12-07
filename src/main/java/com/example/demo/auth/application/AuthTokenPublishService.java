@@ -6,7 +6,7 @@ import com.example.demo.auth.domain.accesstoken.AccessTokenCodec;
 import com.example.demo.auth.domain.refreshtoken.RefreshToken;
 import com.example.demo.auth.domain.refreshtoken.RefreshTokenClaimsGenerator;
 import com.example.demo.auth.domain.refreshtoken.RefreshTokenClaimsRepository;
-import com.example.demo.common.ds.Tuple;
+import com.example.demo.common.ds.Pair;
 import com.example.demo.common.vo.EntityUUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,11 +33,11 @@ public class AuthTokenPublishService {
         this.refreshTokenClaimsRepository = refreshTokenClaimsRepository;
     }
 
-    public Tuple<AccessToken, RefreshToken> publishAuthTokens(final Command command) {
+    public Pair<AccessToken, RefreshToken> publishAuthTokens(final Command command) {
         var accessToken = this.publishAccessToken(command.userId);
         var refreshToken = this.publishRefreshToken(command.userId, accessToken);
         LOGGER.info("User published new auth tokens: " + command.userId.value);
-        return new Tuple<>(accessToken, refreshToken);
+        return new Pair<>(accessToken, refreshToken);
     }
 
     private AccessToken publishAccessToken(final EntityUUID userId) {
